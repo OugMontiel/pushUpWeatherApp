@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+import Header from './components/header.vue';
+</script>
 
 <template>
-  <header>Encabezado</header>
+  <Header />
 
   <main>relleno</main>
 </template>
