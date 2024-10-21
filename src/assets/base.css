@@ -115,7 +115,6 @@ h2,
 h3,
 h4,
 h5 {
-  color: var(--black);
   text-transform: capitalize;
 }
 h1 {

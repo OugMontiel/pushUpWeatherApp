@@ -1,6 +1,6 @@
 <template>
     <header :class="headerClass" :style="headerStyle">
-        <div class="headerContent">
+        <div class="headerContent" >
             <!-- Buscador de ciudades -->
             <div class="headerSearch">
                 <h1 v-if="!searchActive">{{ ciudad }}, {{ pais }}</h1>
@@ -31,12 +31,12 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- Botones de predicción -->
         <div class="headerButtons">
-            <button>Hoy</button>
-            <button>Mañana</button>
-            <button>10 días</button>
+            <button>Today</button>
+            <button>Tomorrow</button>
+            <button>10 days</button>
         </div>
     </header>
 </template>
@@ -121,18 +121,17 @@ header{
 }
 
 /* Estilos del header expandido */
-.header-expanded {
-    background-color: var(--white-fondo);
-    color: var(--white);
-}
-
-.headerContent {
+.header-expanded .headerContent{
     background-image: url(../../public/icon/fondoHeaderExpandido.png);
+    background-size: cover; /* Hace que la imagen cubra todo el contenedor */
+    background-position: bottom;
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-grow: 1;
     padding: 1em;
+    color: var(--white);
     border-bottom-left-radius: 2em;  
     border-bottom-right-radius: 2em; 
 }
