@@ -21,5 +21,8 @@ export default {
 </script>
 
 <style scoped>
+section{
+  padding: 1em;
+}
 /* Aquí puedes incluir estilos generales del main si los necesitas */
 </style>
