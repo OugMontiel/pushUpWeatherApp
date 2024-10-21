@@ -1,29 +1,33 @@
 <template>
     <header :class="headerClass" :style="headerStyle">
         <div class="headerContent">
-            <!-- Bucador de ciudades -->
+            <!-- Buscador de ciudades -->
             <div class="headerSearch">
-                <h1 v-if="!searchActive">Ciudad, País</h1>
+                <h1 v-if="!searchActive">{{ ciudad }}, {{ pais }}</h1>
                 <input type="text" v-if="searchActive" @blur="toggleSearch" placeholder="Buscar ciudad...">
                 <img src="/icon/searchHeader.svg" alt="Icono de búsqueda" @click="toggleSearch" class="searchIcon">
             </div>
 
             <!-- Temperatura -->
             <div class="headerTemp">
-                <h2 class="blond">Temperatura</h2>
-                <h3>Descripción del dato</h3>
-                <div>
+                <h1 class="blond">{{ temperaturaHoy }}°</h1>
+                <h3>{{ descripcionDia }}</h3>
+                <div v-if="isExpanded">
+                    <img src="/icon/solesHeaderExpandido.svg" alt="Icono de clima">
+                    <h2>{{ descripcionClima }}</h2>
+                </div>
+                <div v-if="!isExpanded">
                     <img src="/icon/solesHeader.svg" alt="Icono de clima">
-                    <h2 v-if="isExpanded">Cloudy</h2>
+                    <h2>{{ descripcionClima }}</h2>
                 </div>
             </div>
 
             <!-- Fecha y predicción -->
             <div v-if="isExpanded" class="headerDate">
-                <h3>Fecha, Hora</h3>
+                <h3>{{ fecha }}, {{ hora }}</h3>
                 <div class="blond">
-                    <h3>Day Temperatura</h3>
-                    <h3>Night Temperatura</h3>
+                    <h3>Day {{ temperaturaHoy }}°</h3>
+                    <h3>Night {{ temperaturaManana }}°</h3>
                 </div>
             </div>
         </div>
@@ -41,8 +45,16 @@
 export default {
     data() {
         return {
-            isExpanded: true,   // Controla si el header está expandido o contraído
-            searchActive: false // Controla si el input de búsqueda está activo
+            isExpanded: true,          // Controla si el header está expandido o contraído
+            searchActive: false,       // Controla si el input de búsqueda está activo
+            ciudad: '',                // Ciudad (será obtenida de una petición)
+            pais: '',                  // País (será obtenido de una petición)
+            temperaturaHoy: '',        // Temperatura del día actual
+            temperaturaManana: '',     // Temperatura del día siguiente
+            fecha: '',                 // Fecha actual
+            hora: '',                  // Hora actual
+            descripcionDia: '',        // Descripción del clima del día actual
+            descripcionClima: '',      // Descripción adicional del clima (ej: soleado, nublado)
         };
     },
     computed: {
@@ -58,6 +70,8 @@ export default {
     },
     mounted() {
         window.addEventListener('scroll', this.handleScroll); // Escucha el evento scroll
+        // Aquí  hacer la petición
+        this.fetchWeatherData(); 
     },
     beforeDestroy() {
         window.removeEventListener('scroll', this.handleScroll); // Limpieza del evento
@@ -69,29 +83,58 @@ export default {
         },
         toggleSearch() {
             this.searchActive = !this.searchActive; // Alternar el input de búsqueda
+        },
+        fetchWeatherData() {
+            // Simulación de una petición de API para obtener datos (esto se reemplaza con tu petición real)
+            const weatherData = {
+                ciudad: 'Bogotá',
+                pais: 'Colombia',
+                temperaturaHoy: 22,
+                temperaturaManana: 18,
+                fecha: '2024-10-21',
+                hora: '14:00',
+                descripcionDia: 'Soleado con nubes',
+                descripcionClima: 'Cloudy',
+            };
+
+            // Asignar los datos obtenidos a las variables reactivas
+            this.ciudad = weatherData.ciudad;
+            this.pais = weatherData.pais;
+            this.temperaturaHoy = weatherData.temperaturaHoy;
+            this.temperaturaManana = weatherData.temperaturaManana;
+            this.fecha = weatherData.fecha;
+            this.hora = weatherData.hora;
+            this.descripcionDia = weatherData.descripcionDia;
+            this.descripcionClima = weatherData.descripcionClima;
         }
     },
 };
 </script>
 
 <style scoped>
+
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: background-color var(--transition-3), color var(--transition-3);
+}
+
 /* Estilos del header expandido */
 .header-expanded {
     background-color: var(--white-fondo);
     color: var(--white);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 1em;
-    transition: background-color var(--transition-3), color var(--transition-3);
-    border-radius: 2em;
 }
 
 .headerContent {
+    background-image: url(../../public/icon/fondoHeaderExpandido.png);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex-grow: 1;
+    padding: 1em;
+    border-bottom-left-radius: 2em;  
+    border-bottom-right-radius: 2em; 
 }
 
 .headerSearch,
@@ -102,16 +145,24 @@ export default {
     align-items: center;
 }
 
+.headerTemp h1{
+    font-size: 4em;
+}
+.headerTemp h3{
+    flex-grow:1;
+}
+.headerTemp h3,
+.headerTemp h1{
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
 /* Estilos del header contraído */
 .header-collapsed {
     background-color: var(--white-header);
     color: var(--black);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0.5em;
-    transition: background-color var(--transition-3), color var(--transition-3);
 }
 
 /* Estilos para el input de búsqueda y el ícono */
@@ -128,6 +179,7 @@ export default {
 }
 
 .headerButtons {
+    padding: 1em;
     display: flex;
     justify-content: space-around;
 }
