@@ -8,16 +8,17 @@
   /* solid */
 
   --white: #ffffff;
-  --white-soft: #f8f8f8;
-  --white-mute: #f2f2f2;
+  --white-soft: #FFFBFF;
+  /* --white-mute: #f2f2f2; */
   --white-fondo: #f6edff;
-  --white-hearder:#E2D3FA;
+  --white-contraste-fondo: #d0bcff;
+  --white-hearder: #e2d3fa;
 
   --black: #000;
   --black-soft: #222222;
   --black-mute: #282828;
 
-  --button-active:#E0B6FF;
+  --button-active: #e0b6ff;
   --indigo: #2c3e50;
 
   /**
@@ -116,6 +117,7 @@ h3,
 h4,
 h5 {
   text-transform: capitalize;
+  font-weight: var(--fw-500);
 }
 h1 {
   font-size: var(--fs-1);
@@ -139,7 +141,6 @@ h4 {
 
 h5 {
   font-size: var(--fs-7);
-  font-weight: var(--fw-500);
 }
 
 article.active {
