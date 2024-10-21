@@ -17,7 +17,7 @@
   --black-soft: #222222;
   --black-mute: #282828;
 
-
+  --button-active:#E0B6FF;
   --indigo: #2c3e50;
 
   /**
@@ -59,7 +59,7 @@
 
   --transition-1: 0.25s ease;
   --transition-2: 0.5s ease-in-out;
-  --transition-3: color 5s ease, font-size 5s ease;
+  --transition-3: 5s ease;
 }
 
 /*-----------------------------------*\
