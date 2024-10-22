@@ -1,12 +1,12 @@
 <!-- DayForecasts.vue -->
 <template>
-  <section class="dayForecasts">
-    <div class="weekDetails">
-      <div class="weekTitle">
-        <IconDisplay :icon="iconPath" description="week" />
-        <h3>Day forecast</h3>
+  <section class="WeatherHourBarra">
+    <div class="HourBarraDetails">
+      <div class="HourBarraTitle">
+        <IconDisplay :icon="iconPath" description="HourBarra" />
+        <h3>Chance of rain</h3>
       </div>
-      <div class="weekGrafica">weekGrafica</div>
+      <div class="HourBarraGrafica">HourBarraGrafica</div>
     </div>
   </section>
 </template>
@@ -22,20 +22,20 @@ export default {
 </script>
 
 <style scoped>
-.weekDetails {
+.HourBarraDetails {
   background-color: var(--white-contraste-fondo);
   padding: 0.5em;
   border-radius: 1em;
   display: flex;
   flex-direction: column;
 }
-.weekTitle {
+.HourBarraTitle {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.weekTitle h3 {
+.HourBarraTitle h3 {
   flex-grow: 1;
   padding: 0 0.5em;
 }
