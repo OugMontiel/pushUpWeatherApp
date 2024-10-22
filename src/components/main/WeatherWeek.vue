@@ -3,7 +3,7 @@
   <section class="dayForecasts">
     <div class="weekDetails">
       <div class="weekTitle">
-        <IconDisplay :icon="iconPath" description="week" />
+        <IconDisplay :icon="iconPath" description="dayForescast" />
         <h3>Day forecast</h3>
       </div>
       <div class="weekGrafica">weekGrafica</div>
@@ -17,6 +17,11 @@ import IconDisplay from './IconDisplay.vue'
 export default {
   components: {
     IconDisplay,
+  },
+  data() {
+    return {
+      iconPath: '/icon/dayForescast.svg',
+    }
   },
 }
 </script>

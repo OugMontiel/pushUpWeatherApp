@@ -7,9 +7,7 @@
         class="elemenPronostico"
       >
         <div class="circulo">
-          <span>
-            <img :src="inf.icon" :alt="inf.description" />
-          </span>
+          <IconDisplay :icon="inf.icon" :description="inf.description" />
         </div>
         <div class="contenido">
           <h3>{{ inf.titulo }}</h3>
@@ -52,8 +50,13 @@
 </template>
 
 <script>
+import IconDisplay from './IconDisplay.vue'
+
 export default {
-  data() {
+    components: {
+      IconDisplay,
+    },
+    data() {
     return {
       elemenPronostico: [
         {
@@ -110,19 +113,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.circulo span {
-  background-color: var(--white-soft);
-  width: 2em;
-  height: 2em;
-  border-radius: 50%;
-}
-
-.circulo img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
 }
 
 .contenido {

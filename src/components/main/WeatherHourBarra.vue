@@ -3,7 +3,7 @@
   <section class="WeatherHourBarra">
     <div class="HourBarraDetails">
       <div class="HourBarraTitle">
-        <IconDisplay :icon="iconPath" description="HourBarra" />
+        <IconDisplay :icon="iconPath" description="chanceOfRain" />
         <h3>Chance of rain</h3>
       </div>
       <div class="HourBarraGrafica">HourBarraGrafica</div>
@@ -17,6 +17,11 @@ import IconDisplay from './IconDisplay.vue'
 export default {
   components: {
     IconDisplay,
+  },
+  data() {
+    return {
+      iconPath: '/icon/chanceOfRain.svg',
+    }
   },
 }
 </script>

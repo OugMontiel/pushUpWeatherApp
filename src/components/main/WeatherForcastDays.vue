@@ -7,9 +7,7 @@
         class="elemenPronostico"
       >
         <div class="circulo">
-          <span>
-            <img :src="inf.icon" :alt="inf.description" />
-          </span>
+          <IconDisplay :icon="inf.icon" :description="inf.description" />
         </div>
         <div class="contenido">
           <h3>{{ inf.titulo }}</h3>
@@ -28,7 +26,12 @@
 </template>
 
 <script>
+import IconDisplay from './IconDisplay.vue'
+
 export default {
+  components: {
+      IconDisplay,
+    },
   data() {
     return {
       elemenPronostico: [
@@ -36,15 +39,15 @@ export default {
           titulo: 'Sunrise',
           dato: '4:20 AM',
           varDato: '4h ago',
-          icon: '/icon/Sunrise.svg',
-          description: 'Wind icon',
+          icon: '/icon/sunrise.svg',
+          description: 'sunrise icon',
         },
         {
           titulo: 'Sunset',
           dato: '4:50 PM',
           varDato: 'in 9h',
-          icon: '/icon/Sunset.svg',
-          description: 'Rain icon',
+          icon: '/icon/sunset.svg',
+          description: 'sunset icon',
         }
       ],
     }
@@ -72,19 +75,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.circulo span {
-  background-color: var(--white-soft);
-  width: 2em;
-  height: 2em;
-  border-radius: 50%;
-}
-
-.circulo img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
 }
 
 .contenido {

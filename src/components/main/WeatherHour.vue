@@ -2,7 +2,7 @@
   <section class="weatherHour">
     <div class="hourDetails">
       <div class="hourTitle">
-        <IconDisplay :icon="iconPath" description="forecast" />
+        <IconDisplay :icon="iconPath" description="hourlyForecast" />
         <h3>Hourly forecast</h3>
       </div>
       <div class="hourList">
@@ -31,6 +31,7 @@ export default {
   },
   data() {
     return {
+      iconPath: '/icon/hourlyForecast.svg',
       weatherHours: [
         {
           time: 'Now',
