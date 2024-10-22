@@ -49,12 +49,14 @@
       <button>10 days</button>
     </div>
   </header>
+  <div v-if="!isExpanded" style="height: 35vh;"></div> <!-- Espacio adicional -->
 </template>
 
 <script>
 export default {
   data() {
     return {
+      scrollY: 0,
       isExpanded: true, // Controla si el header está expandido o contraído
       searchActive: false, // Controla si el input de búsqueda está activo
       ciudad: '', // Ciudad (será obtenida de una petición)
@@ -73,14 +75,17 @@ export default {
     },
     headerStyle() {
       return {
-        transition: 'all 0.5s ease', // Animación más rápida y suave (0.5s)
-        height: this.isExpanded ? '50vh' : '10vh', // Altura dinámica
+        transition: 'all 0.3s ease', // Animación para suavizar la transición
+        height: this.isExpanded ? '50vh' : '15vh', // Altura dinámica
+        position: this.isExpanded ? 'static' : 'fixed', // Cambia entre 'static' y 'sticky'
+        top: 0, // Asegura que esté en la parte superior de la ventana
+        width: '100%', // Asegura que el encabezado ocupe todo el ancho de la ventana
+        zIndex: 1000, // Asegura que el encabezado esté por encima de otros elementos
       }
     },
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll) // Escucha el evento scroll
-    // Aquí  hacer la petición
     this.fetchWeatherData()
   },
   beforeUnmount() {
@@ -88,14 +93,18 @@ export default {
   },
   methods: {
     handleScroll() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-      this.isExpanded = scrollTop < 100 // Cambia el estado cuando se hace scroll
+      this.scrollY = window.scrollY || document.documentElement.scrollTop // Captura el desplazamiento
+
+      // Solo cambia el estado si hay un cambio en el scroll
+      const shouldExpand = this.scrollY < 100
+      if (this.isExpanded !== shouldExpand) {
+        this.isExpanded = shouldExpand // Cambia el estado solo si es necesario
+      }
     },
     toggleSearch() {
       this.searchActive = !this.searchActive // Alternar el input de búsqueda
     },
     fetchWeatherData() {
-      // Simulación de una petición de API para obtener datos (esto se reemplaza con tu petición real)
       const weatherData = {
         ciudad: 'Bogotá',
         pais: 'Colombia',
@@ -158,9 +167,11 @@ header {
 .headerTemp h1 {
   font-size: 4em;
 }
+
 .headerTemp h3 {
   flex-grow: 1;
 }
+
 .headerTemp h3,
 .headerTemp h1 {
   height: 100%;
@@ -171,8 +182,11 @@ header {
 
 /* Estilos del header contraído */
 .header-collapsed {
-  background-color: var(--white-header);
+  background-color: var(--white-hearder);
   color: var(--black);
+}
+.header-collapsed .headerButtons{
+  background-color: var(--white-hearder);
 }
 
 /* Estilos para el input de búsqueda y el ícono */
